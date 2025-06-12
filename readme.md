@@ -1,0 +1,3 @@
+- [*] information (audit ratio / Id) 
+- SVG (graphs: XP / audit ratio / skills)
+- deploying it (eg: github )
