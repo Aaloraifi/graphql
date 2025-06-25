@@ -1,3 +1,9 @@
 - check if responsive
 - do i have to have error pages other than 404
 - check deploy "pushes not updated in github"
+
+
+
+
+
+
