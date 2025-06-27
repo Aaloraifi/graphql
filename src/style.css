@@ -309,7 +309,6 @@ button:active {
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
-/* Card Grid Layout */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -326,8 +325,6 @@ button:active {
   max-width: 400px;
 }
 
-
-/* SVG Container Centering */
 .svg-container {
   display: flex;
   justify-content: center;
@@ -336,13 +333,11 @@ button:active {
   margin: 1rem 0;
 }
 
-/* Center all SVG elements */
 svg {
   display: block;
   margin: 0 auto;
 }
 
-/* Card content centering */
 .card-content {
   display: flex;
   flex-direction: column;
@@ -351,7 +346,6 @@ svg {
   width: 100%;
 }
 
-/* Ensure text content in cards is centered */
 .card p,
 .card h2,
 .card h3 {
@@ -359,7 +353,6 @@ svg {
   width: 100%;
 }
 
-/* Login form centering improvements */
 .login-container {
   display: flex;
   flex-direction: column;
@@ -369,13 +362,12 @@ svg {
   width: 100%;
 }
 
-/* Dashboard welcome section centering */
+/* Dashboard welcome */
 .welcome-section {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-/* Loading spinner center */
 .loading-spinner {
   display: flex;
   justify-content: center;
@@ -383,7 +375,6 @@ svg {
   height: 100px;
 }
 
-/* Collapsible content centering */
 .collapsible-content {
   width: 100%;
   transition: all 0.3s ease;
@@ -394,7 +385,6 @@ svg {
   width: 100%;
 }
 
-/* Collapsible sections improvements */
 .collapsible-header {
   cursor: pointer;
   user-select: none;
@@ -485,7 +475,6 @@ svg {
   justify-content: center;
 }
 
-/* Center hexagon with user avatar */
 .center-hexagon {
   position: absolute;
   width: 120px;
@@ -562,13 +551,11 @@ svg {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Firefox support */
 .card {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
 
-/* Angular points around the center */
 .angle-point {
   position: absolute;
   width: 60px;
@@ -629,7 +616,6 @@ arrow-indicator::before {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Info panels that appear on hover */
 .info-panel {
   position: absolute;
   top: 50%;
@@ -691,7 +677,6 @@ arrow-indicator::before {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Connecting lines animation */
 .angular-container::before {
   content: '';
   position: absolute;
@@ -746,7 +731,6 @@ arrow-indicator::before {
   100% { background-position: 100% 50%; }
 }
 
-/* Responsive design for user info */
 @media (max-width: 768px) {
   .user-info-dashboard {
     padding: 2rem 1rem;
@@ -879,7 +863,6 @@ arrow-indicator::before {
   }
 }
 
-/* Glass morphism enhancement */
 .glass {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
@@ -890,8 +873,6 @@ arrow-indicator::before {
 }
 
 
-
-/* High contrast mode */
 @media (prefers-contrast: high) {
   .card {
     border: 2px solid white;
@@ -902,7 +883,6 @@ arrow-indicator::before {
   }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -933,3 +913,4 @@ arrow-indicator::before {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
 }
+

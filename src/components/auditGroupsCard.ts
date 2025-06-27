@@ -31,7 +31,7 @@ export async function createAuditGroupsCard(jwt: string): Promise<HTMLDivElement
   try {
     const auditStatus = await fetchAudit(jwt);
 
-    // Helper to extract project name from path
+    //extract project name from path
     function getProjectName(path: string) {
       if (!path) return "";
       const parts = path.split("/");
@@ -96,7 +96,7 @@ export async function createAuditGroupsCard(jwt: string): Promise<HTMLDivElement
       return table;
     }
 
-    // Helper to build a scrollable table for audits
+    // scrollable table for audits
     function buildScrollableTable(nodes: any[], caption: string) {
       const wrapper = document.createElement("div");
       wrapper.style.margin = "1rem 0";
@@ -112,11 +112,11 @@ export async function createAuditGroupsCard(jwt: string): Promise<HTMLDivElement
       return wrapper;
     }
 
-    // Valid Audits Table (scrollable if needed)
+    // Valid Audits Table 
     const validTable = buildScrollableTable(auditStatus.validAudits.nodes, `Passed Audits (${auditStatus.validAudits.nodes.length})`);
     auditCard.appendChild(validTable);
 
-    // Failed Audits Table (scrollable if needed)
+    // Failed Audits Table
     const failedTable = buildScrollableTable(auditStatus.failedAudits.nodes, `Failed Audits (${auditStatus.failedAudits.nodes.length})`);
     auditCard.appendChild(failedTable);
   } catch (err) {

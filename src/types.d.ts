@@ -24,10 +24,6 @@ export interface AuditRatio {
   totalDown: number;
 }
 
-export interface Transaction {
-  amount: number;
-}
-
 export interface UserSkill {
   amount: number;
   type: string;
@@ -36,10 +32,6 @@ export interface UserSkill {
 export interface UserTech {
   amount: number;
   type: string;
-}
-
-export interface UserXP {
-  amount: number;
 }
 
 export interface IAuditStatus {
@@ -69,19 +61,8 @@ export interface ITotalXp {
   };
 }
 
-export interface AuditData {
-  ratio: number;
-  done: number;
-  received: number;
-}
-
-export interface Rank {
-  minLevel: number;
-  maxLevel: number;
-  title: string;
-}
-
-export interface IRankInfo {
-  currentRank: Rank;
-  nextRank: Rank | null;
+export interface LastProject {
+  name: string;
+  createdAt: string;
+  amount: number;
 }

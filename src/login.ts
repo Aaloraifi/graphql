@@ -1,7 +1,6 @@
 import { login } from "./auth.ts";
 
 export function showLoginForm(container: HTMLElement) {
-  // Remove floating avatar/logout if present
   const floating = document.getElementById("floating-user-avatar");
   if (floating) floating.remove();
 

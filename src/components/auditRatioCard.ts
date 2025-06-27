@@ -53,10 +53,8 @@ export async function createAuditRatioCard(jwt: string): Promise<HTMLDivElement>
     });
 
 
-    // Add the SVG bar chart
     card.appendChild(createAuditBarChart(totalUp, totalDown));
 
-    // Show the actual Audit Ratio value below the chart if available
     if (ratioValue !== null) {
       const ratioHeading = document.createElement("p");
       ratioHeading.textContent = `Audit Ratio: ${ratioValue.toFixed(1)}`;
@@ -78,9 +76,7 @@ export async function createAuditRatioCard(jwt: string): Promise<HTMLDivElement>
   return card;
 }
 
-/**
- * Enhanced two-row horizontal bar chart with gradients and animations
- */
+
 function createAuditBarChart(totalUp: number, totalDown: number): SVGSVGElement {
   const max = Math.max(totalUp, totalDown) || 1;
   const fullWidth = 300;
@@ -182,8 +178,6 @@ function createAuditBarChart(totalUp: number, totalDown: number): SVGSVGElement 
     return text;
   };
 
-
-  // Bars
   svg.appendChild(makeRect(20, upWidth, "bar-up"));
   svg.appendChild(makeText(20, upWidth, totalUp));
 

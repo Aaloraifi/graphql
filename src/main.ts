@@ -1,5 +1,5 @@
 import { login, logout } from "./auth";
-import './style.css';
+import "./style.css";
 import { createUserInfoSection } from "./components/userInfo";
 import { createLevelCard } from "./components/levelCard";
 import { createAuditRatioCard } from "./components/auditRatioCard";
@@ -7,6 +7,7 @@ import { createXPCard } from "./components/xpCard";
 import { createSkillsCard } from "./components/skillsCard";
 import { createTechCard } from "./components/techCard";
 import { createAuditGroupsCard } from "./components/auditGroupsCard";
+import { createLearningProgressCardWithProjects } from "./components/learningProgressCard";
 
 const root = document.getElementById("app")!;
 
@@ -14,7 +15,7 @@ function renderLogin() {
   root.innerHTML = "";
   const floating = document.getElementById("floating-user-avatar");
   if (floating) floating.remove();
-  // Create logo section
+  //logo
   const logoDiv = document.createElement("div");
   logoDiv.className = "logo";
   const logoTitle = document.createElement("h1");
@@ -65,7 +66,8 @@ function renderLogin() {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const id = (document.getElementById("identifier") as HTMLInputElement).value;
+    const id = (document.getElementById("identifier") as HTMLInputElement)
+      .value;
     const pw = (document.getElementById("password") as HTMLInputElement).value;
     errorDiv.textContent = "";
     submitButton.textContent = "Signing in...";
@@ -90,18 +92,16 @@ async function renderDashboard() {
 
   try {
     root.innerHTML = "";
-    // Create main container
     const mainContainer = document.createElement("div");
     mainContainer.className = "container fade-in";
-    // Create logo section
     const logoDiv = document.createElement("div");
     logoDiv.className = "logo";
     const logoTitle = document.createElement("h1");
     logoTitle.textContent = "GraphQL";
     logoDiv.appendChild(logoTitle);
-    // User info section
+    
     const container = await createUserInfoSection(jwt);
-    // Cards grid container
+   
     const cardsGrid = document.createElement("div");
     cardsGrid.className = "cards-grid";
     mainContainer.appendChild(logoDiv);
@@ -112,31 +112,35 @@ async function renderDashboard() {
       logout();
       renderLogin();
     });
-    // Load cards with animation delay
+    
     const cardPromises = [
       createLevelCard(jwt),
       createAuditRatioCard(jwt),
       createXPCard(jwt),
       createSkillsCard(jwt),
       createTechCard(jwt),
-      createAuditGroupsCard(jwt)
+      createAuditGroupsCard(jwt),
+      createLearningProgressCardWithProjects(jwt),
     ];
     const cards = await Promise.all(cardPromises);
 
-    // Group Audit Ratio and XP cards together
+    // Group Audit Ratio and XP together
     const cardRow = document.createElement("div");
     cardRow.className = "card-row";
     cardRow.style.display = "flex";
     cardRow.style.gap = "2rem";
     cardRow.style.justifyContent = "center";
     cardRow.style.flexWrap = "wrap";
-    cardRow.appendChild(cards[1]); 
-    cardRow.appendChild(cards[2]); 
-    cardsGrid.appendChild(cards[0]); 
-    cardsGrid.appendChild(cardRow);
+    cardsGrid.appendChild(cards[0]); // Level card
+    cardRow.appendChild(cards[1]); // Audit Ratio
+    cardRow.appendChild(cards[2]); // XP
+    cardsGrid.appendChild(cardRow); // Row group
 
-    [5, 3, 4].forEach(i => cardsGrid.appendChild(cards[i]));
+    [5, 3, 6, 4].forEach((i) => { // the rest are here
+      if (cards[i]) cardsGrid.appendChild(cards[i]);
+    });
   } catch (err) {
+    console.error("Dashboard error:", err);
     localStorage.removeItem("jwt");
     render404();
   }

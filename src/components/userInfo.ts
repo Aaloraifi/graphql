@@ -3,7 +3,7 @@ import { fetchUserData } from "../graphql";
 export async function createUserInfoSection(jwt: string): Promise<HTMLDivElement> {
   const user = await fetchUserData(jwt);
 console.log("user.attrs:", user.attrs);
-  // Top-left avatar and logout (outside dashboard)
+  // logout (outside dashboard)
   const floating = document.createElement("div");
   floating.style.position = "fixed";
   floating.style.top = "2rem";
@@ -13,7 +13,7 @@ console.log("user.attrs:", user.attrs);
   floating.style.flexDirection = "column";
   floating.style.alignItems = "flex-start";
 
-  // User avatar (initials)
+  // User(initials)
   const avatar = document.createElement("div");
   avatar.className = "user-avatar";
   avatar.textContent = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
@@ -36,7 +36,7 @@ console.log("user.attrs:", user.attrs);
   logoutBtn.style.cursor = "pointer";
   logoutBtn.style.marginTop = "0.5rem";
 
-  // Show logout on avatar hover
+  // Show logout on hover
   avatar.addEventListener("mouseenter", () => {
     logoutBtn.style.display = "block";
   });
@@ -55,11 +55,9 @@ console.log("user.attrs:", user.attrs);
   floating.appendChild(avatar);
   floating.appendChild(logoutBtn);
 
-  // Remove any existing floating avatar/logout to avoid duplicates or lingering on login
+  //remove existing floating avatar if any 
   const existingFloating = document.getElementById("floating-user-avatar");
   if (existingFloating) existingFloating.remove();
-
-  // Only add floating avatar/logout if jwt exists in localStorage and not already present
   if (localStorage.getItem("jwt")) {
     floating.id = "floating-user-avatar";
     document.body.appendChild(floating);
@@ -68,8 +66,7 @@ console.log("user.attrs:", user.attrs);
   // Main dashboard container
   const container = document.createElement("div");
   container.className = "dashboard";
-
-  // Rectangular card for user info
+ // info card
   const card = document.createElement("div");
   card.className = "card user-info-card";
   card.style.margin = "2rem auto 2.5rem auto";
@@ -78,13 +75,12 @@ console.log("user.attrs:", user.attrs);
   card.style.textAlign = "center";
   card.style.boxSizing = "border-box";
 
-  // Welcome heading
   const heading = document.createElement("h2");
   heading.textContent = `WELCOME ${user.firstName} ${user.lastName}!`;
   heading.style.marginBottom = "0.5rem";
   card.appendChild(heading);
 
-  // User info details styled as a transparent table with 3 items per row
+  // User info details 
   const detailsTable = document.createElement("table");
   detailsTable.className = "user-info-table";
   detailsTable.style.width = "100%";
@@ -96,7 +92,6 @@ console.log("user.attrs:", user.attrs);
   detailsTable.style.margin = "1.5rem 0";
   detailsTable.style.color = "0 2px 12px 0 rgba(166, 24, 123, 0.07)";
 
-  // Collect all info as [label, value] pairs
   const infoRows: [string, string][] = [
     ["Email", user.email],
     ["Campus", user.campus],
@@ -117,7 +112,31 @@ console.log("user.attrs:", user.attrs);
     if (user.attrs.countryOfBirth) infoRows.push(["Place of Birth", user.attrs.countryOfBirth]);
   }
 
-  // Render every 3 items in a row
+  // foldable user info section
+  const foldBtn = document.createElement("button");
+  foldBtn.textContent = "Show Info";
+  foldBtn.style.margin = "0.5rem auto 1rem auto";
+  foldBtn.style.display = "block";
+  foldBtn.style.background = "linear-gradient(135deg, #e10098, #764ba2)";
+  foldBtn.style.color = "#fff";
+  foldBtn.style.border = "none";
+  foldBtn.style.borderRadius = "8px";
+  foldBtn.style.padding = "0.5rem 1.5rem";
+  foldBtn.style.fontWeight = "600";
+  foldBtn.style.fontSize = "1rem";
+  foldBtn.style.cursor = "pointer";
+  foldBtn.style.transition = "all 0.3s";
+  foldBtn.style.boxShadow = "0 2px 8px rgba(225,0,152,0.08)";
+  let folded = true;
+  detailsTable.style.display = "none";
+  foldBtn.onclick = () => {
+    folded = !folded;
+    detailsTable.style.display = folded ? "none" : "table";
+    foldBtn.textContent = folded ? "Show Info" : "Hide Info";
+  };
+  card.appendChild(foldBtn);
+
+  // 3 items in a row
   for (let i = 0; i < infoRows.length; i += 3) {
     const tr = document.createElement("tr");
     for (let j = 0; j < 3; j++) {
@@ -150,7 +169,6 @@ console.log("user.attrs:", user.attrs);
         td.appendChild(valueEl);
         tr.appendChild(td);
       } else {
-        // Empty cell for alignment
         const td = document.createElement("td");
         td.style.background = "transparent";
         td.style.border = "none";

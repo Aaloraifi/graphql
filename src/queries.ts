@@ -124,22 +124,23 @@ export const Audit_Ratio = `
 }
 `;
 
-// export const LAST_THREE_PROJECTS_QUERY = `
-// {
-//   transaction(
-//     where: {
-//       type: { _eq: "xp" },
-//       object: { type: { _eq: "project" } }
-//     }
-//     order_by: { createdAt: desc }
-//     limit: 3
-//   ) {
-//     object {
-//       name
-//       path
-//     }
-//     createdAt
-//     amount
-//   }
-// }
-// `;
+
+
+export const LAST_THREE_PROJECTS_QUERY = `
+{
+  transaction(
+    where: {
+      type: { _eq: "xp" },
+      object: { type: { _eq: "project" } }
+    }
+    order_by: { createdAt: desc }
+    limit: 3
+  ) {
+    object {
+      name
+    }
+    createdAt
+    amount
+  }
+}
+`;

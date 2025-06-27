@@ -8,8 +8,6 @@ export async function createSkillsCard(jwt: string): Promise<HTMLDivElement> {
   card.style.textAlign = "center";
   card.style.position = "relative";
   card.style.overflow = "hidden";
-  card.style.marginLeft = "25rem";
-
 
   const particles = document.createElement("div");
   particles.style.position = "absolute";
@@ -36,7 +34,7 @@ export async function createSkillsCard(jwt: string): Promise<HTMLDivElement> {
     card.appendChild(title);
 
     const desc = document.createElement("p");
-    desc.textContent = "Highest completion rates by category.";
+    desc.textContent = "Skills with the Highest completion rates by category.";
     desc.style.fontSize = "0.9rem";
     desc.style.opacity = "0.8";
     card.appendChild(desc);
@@ -112,7 +110,7 @@ function createRadarChart(skills: UserSkill[]): SVGSVGElement {
     svg.appendChild(circle);
   }
 
-  // Spokes and labels with enhanced styling
+  // Spokes and labels 
   skills.forEach((skill, idx) => {
     const angle = angleStep * idx - Math.PI / 2;
     const x = cx + Math.cos(angle) * radius;

@@ -179,8 +179,7 @@ function createEnhancedLevelVisualization(level: number): SVGSVGElement {
   progressCircle.appendChild(animate);
   
   svg.appendChild(progressCircle);
-
-  // Center content
+  
   const centerGroup = document.createElementNS(svgNS, "g");
   
   // Inner circle

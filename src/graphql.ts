@@ -1,5 +1,5 @@
-import { USER_INFO_QUERY, TRANSACTION_QUERY, AUDIT_QUERY, TOTAL_XP, User_Technical_Skills, User_Technologies, Audit_Ratio} from "./queries";
-import type { Result, User, AuditRatio, IAuditStatus, UserTech, UserSkill} from "./types";
+import { USER_INFO_QUERY, TRANSACTION_QUERY, AUDIT_QUERY, TOTAL_XP, User_Technical_Skills, User_Technologies, Audit_Ratio, LAST_THREE_PROJECTS_QUERY} from "./queries";
+import type { Result, User, AuditRatio, IAuditStatus, UserTech, UserSkill, LastProject} from "./types";
 
 const baseUrl = "https://learn.reboot01.com/api/graphql-engine/v1/graphql";
 export async function fetchUserData(jwt: string): Promise<User> {
@@ -132,3 +132,30 @@ export async function fetchAuditRatio(jwt: string): Promise<Result<AuditRatio>> 
 }
 
 
+export async function fetchLastThreeProjects(jwt: string): Promise<LastProject[]> {
+  const res = await fetch(baseUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+    body: JSON.stringify({
+      query: LAST_THREE_PROJECTS_QUERY,
+    }),
+  });
+
+  const response = await res.json();
+  console.log("Full response:", response);
+
+  const data = response.data;
+  if (!data || !Array.isArray(data.transaction)) {
+    console.warn("No transaction data found.");
+    return [];
+  }
+
+  return data.transaction.map((t: any) => ({
+    name: t.object?.name ?? "",
+    createdAt: t.createdAt,
+    amount: t.amount,
+  }));
+}
