@@ -1,4 +1,6 @@
 # 🚀 GraphQL Student Dashboard
+<<you can access the project from this link!>>
+[🌐 Live Demo](https://graphql-aaloraif-two.vercel.app/)
 
 A modern, motivational dashboard for students, visualizing your learning journey and project progress from a GraphQL API. Features beautiful SVG animations, glassmorphism UI, and a focus on progress and encouragement.
 
@@ -94,7 +96,6 @@ src/
 
 ## 📄 **Project By:**
 Aysha Aloraifi (aaloraif)
-
 
 **Built with ❤️ for student motivation and progress!**
 
