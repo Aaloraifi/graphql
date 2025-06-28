@@ -36,7 +36,7 @@ console.log("user.attrs:", user.attrs);
   logoutBtn.style.cursor = "pointer";
   logoutBtn.style.marginTop = "0.5rem";
 
-  // Show logout on hover
+  // Show logout on hover (desktop)
   avatar.addEventListener("mouseenter", () => {
     logoutBtn.style.display = "block";
   });
@@ -50,6 +50,18 @@ console.log("user.attrs:", user.attrs);
   });
   logoutBtn.addEventListener("mouseenter", () => {
     logoutBtn.style.display = "block";
+  });
+
+  // Show/hide logout on tap/click (mobile)
+  avatar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    logoutBtn.style.display = logoutBtn.style.display === "block" ? "none" : "block";
+  });
+  // Hide logout if clicking anywhere else
+  document.addEventListener("click", (e) => {
+    if (!avatar.contains(e.target as Node) && !logoutBtn.contains(e.target as Node)) {
+      logoutBtn.style.display = "none";
+    }
   });
 
   floating.appendChild(avatar);
